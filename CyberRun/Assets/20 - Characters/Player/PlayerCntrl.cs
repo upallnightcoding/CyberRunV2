@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerCntrl : MonoBehaviour
 {
+    [SerializeField] private GameData gameData;
+
     private Animator animator;
 
     private Vector3 direction;
@@ -14,8 +16,8 @@ public class PlayerCntrl : MonoBehaviour
     {
         animator = GetComponentInChildren<Animator>();
 
-        direction = new Vector3(1.0f, 0.0f, 1.0f);
-        speed = 5.0f;
+        direction = new Vector3(0.0f, 0.0f, 1.0f);
+        speed = gameData.speed;
 
         animator.SetFloat("speed", 1.0f);
     }
@@ -24,11 +26,16 @@ public class PlayerCntrl : MonoBehaviour
     void Update()
     {
         transform.Translate(speed * direction * Time.deltaTime, Space.World);
+
+        Quaternion rotTarget = Quaternion.LookRotation(direction);
+        this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, rotTarget, 500.0f * Time.deltaTime);
     }
 
     private void MovePlayer(float movement)
     {
         Debug.Log($"MovePlayer: {movement}");
+
+        direction = new Vector3(movement, 0.0f, 1.0f).normalized;
     }
 
     private void OnEnable()
