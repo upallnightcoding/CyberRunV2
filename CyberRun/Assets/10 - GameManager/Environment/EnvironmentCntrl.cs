@@ -8,7 +8,7 @@ public class EnvironmentCntrl : MonoBehaviour
     [SerializeField] private GameObject environment;
     [SerializeField] private Transform player;
 
-    private float offset = 7.5f;
+    private float offset = 17.5f;
     private float z = 0.0f;
     private float diff;
 

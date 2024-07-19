@@ -51,8 +51,6 @@ public class PlayerCntrl : MonoBehaviour
 
     private void MovePlayer(float movement)
     {
-        Debug.Log($"MovePlayer: {movement}");
-
         direction = new Vector3(movement, 0.0f, 1.0f).normalized;
     }
 
