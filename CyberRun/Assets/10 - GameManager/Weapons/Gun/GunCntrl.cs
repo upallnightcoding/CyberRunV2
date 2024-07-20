@@ -21,8 +21,8 @@ public class GunCntrl : MonoBehaviour
 
     public void Fire()
     {
-        GameObject go = 
-            Instantiate(projectile.prefab, muzzlePoint.position, Quaternion.identity);
-        go.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * 200.0f, ForceMode.Impulse);
+        GameObject go = Instantiate(projectile.prefab, muzzlePoint.position, Quaternion.identity);
+        go.GetComponentInChildren<Rigidbody>().AddForce(transform.forward * 300.0f, ForceMode.Impulse);
+        Destroy(go, 3.0f);
     }
 }

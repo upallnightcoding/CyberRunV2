@@ -9,5 +9,5 @@ public class ProjectileSO : ScriptableObject
 
     public GameObject prefab;
 
-    public float hit;
+    public float damage;
 }

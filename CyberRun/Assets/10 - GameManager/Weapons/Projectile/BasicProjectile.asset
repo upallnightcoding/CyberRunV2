@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileName: Basic Projectile
   prefab: {fileID: 44242756486668819, guid: 3240c06bfc455d4499f39ef02605d78d, type: 3}
-  hit: 20
+  damage: 10
