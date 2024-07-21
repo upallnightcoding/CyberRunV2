@@ -10,8 +10,8 @@ public class EventManager
     public event Action<float> OnSliderMovement = delegate { };
     public void InvokeOnSliderMovement(float slider) => OnSliderMovement.Invoke(slider);
 
-    public event Action<long> OnAddXP = delegate { };
-    public void InvokeOnAddXP(long xp) => OnAddXP.Invoke(xp);
+    public event Action<long> OnUpdateXP = delegate { };
+    public void InvokeOnUpdateXP(long xp) => OnUpdateXP.Invoke(xp);
 
     // Event Manager Singleton
     //========================

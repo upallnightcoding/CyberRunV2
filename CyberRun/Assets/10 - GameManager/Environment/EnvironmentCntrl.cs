@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnvironmentCntrl : MonoBehaviour
 {
-    [SerializeField] private GameObject tilePrefab;
+    [SerializeField] private GameObject platePrefab;
     [SerializeField] private GameObject environment;
     [SerializeField] private Transform player;
 
@@ -19,7 +19,7 @@ public class EnvironmentCntrl : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            CreateTile();
+            CreatePlate();
         }
     }
 
@@ -28,13 +28,13 @@ public class EnvironmentCntrl : MonoBehaviour
     {
         if (player.transform.position.z + diff > z)
         {
-            CreateTile();
+            CreatePlate();
         }
     }
 
-    private void CreateTile()
+    private void CreatePlate()
     {
-        Instantiate(tilePrefab, new Vector3(0.0f, 0.0f, z), Quaternion.identity);
+        Instantiate(platePrefab, new Vector3(0.0f, 0.0f, z), Quaternion.identity);
         z += offset;
     }
 }

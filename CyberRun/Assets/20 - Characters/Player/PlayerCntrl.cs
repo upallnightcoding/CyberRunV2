@@ -45,7 +45,6 @@ public class PlayerCntrl : MonoBehaviour
         if (context.performed)
         {
             gun.GetComponent<GunCntrl>().Fire();
-            //Debug.Log("Fire ...");
         }
     }
 

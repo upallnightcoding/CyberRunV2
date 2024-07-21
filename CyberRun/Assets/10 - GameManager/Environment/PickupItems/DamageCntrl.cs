@@ -24,6 +24,8 @@ public class DamageCntrl : MonoBehaviour
 
         if (health <= 0.0f)
         {
+            EventManager.Instance.InvokeOnUpdateXP(10);
+
             Destroy(gameObject);
         }
     }
