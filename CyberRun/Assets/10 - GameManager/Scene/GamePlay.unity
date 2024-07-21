@@ -1409,9 +1409,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c8875436b405184e924f3228096cd56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameData: {fileID: 11400000, guid: 5e27ab6b340ab4746ad65aabb40ade0a, type: 2}
   platePrefab: {fileID: 3675089837959923865, guid: 63b255235a6e58545a036079317a1971, type: 3}
   environment: {fileID: 1991103075}
   player: {fileID: 682543542}
+  pickupItems:
+  - {fileID: 9161573780243593765, guid: 18e72628bdbc7f94db160943fba872fd, type: 3}
 --- !u!1 &2005727021
 GameObject:
   m_ObjectHideFlags: 0

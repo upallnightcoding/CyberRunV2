@@ -7,4 +7,8 @@ public class GameData : ScriptableObject
 {
     [Header("Player Attributes")]
     public float speed;
+
+    [Space]
+    [Header("Environment Attributes")]
+    public float pickItemHeight = 1.0f;
 }
