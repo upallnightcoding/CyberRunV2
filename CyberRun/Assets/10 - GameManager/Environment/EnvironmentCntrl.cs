@@ -5,11 +5,14 @@ using UnityEngine;
 public class EnvironmentCntrl : MonoBehaviour
 {
     [SerializeField] private GameData gameData;
-    [SerializeField] private GameObject platePrefab;
     [SerializeField] private GameObject environment;
     [SerializeField] private Transform player;
 
     [SerializeField] private GameObject[] pickupItems;
+    [SerializeField] private GameObject plateFw;
+    [SerializeField] private GameObject wallFw;
+
+    [SerializeField] private GameObject[] wallPrefab;
 
     private float offset = 17.5f;
     private float z = 0.0f;
@@ -35,14 +38,54 @@ public class EnvironmentCntrl : MonoBehaviour
         }
     }
 
-    private void CreatePlate()
+    private void xxxCreatePlate()
     {
         GameObject plate = 
-            Instantiate(platePrefab, new Vector3(0.0f, 0.0f, z), Quaternion.identity);
+            Instantiate(plateFw, new Vector3(0.0f, 0.0f, z), Quaternion.identity);
 
         PlacePickupItems(plate);
 
         z += offset;
+    }
+
+    private void CreatePlate()
+    {
+        Framework framework = new();
+
+        GameObject plate = framework
+            .Blueprint(plateFw)
+            .Apply(CreateWall(), "Anchor00", 90.0f)
+            .Apply(CreateWall(), "Anchor01", 90.0f)
+            .Apply(CreateWall(), "Anchor02", 90.0f)
+            .Apply(CreateWall(), "Anchor03", 90.0f)
+            .Apply(CreateWall(), "Anchor04", 90.0f)
+            .Apply(CreateWall(), "Anchor05", 90.0f)
+            .Apply(CreateWall(), "Anchor06", 90.0f)
+            .Apply(CreateWall(), "Anchor07", -90.0f)
+            .Apply(CreateWall(), "Anchor08", -90.0f)
+            .Apply(CreateWall(), "Anchor09", -90.0f)
+            .Apply(CreateWall(), "Anchor10", -90.0f)
+            .Apply(CreateWall(), "Anchor11", -90.0f)
+            .Apply(CreateWall(), "Anchor12", -90.0f)
+            .Apply(CreateWall(), "Anchor13", -90.0f)
+            .Position(new Vector3(0.0f, 0.0f, z))
+            .Build();
+
+        PlacePickupItems(plate);
+
+        z += offset;
+    }
+
+    private GameObject CreateWall()
+    {
+        Framework framework = new();
+
+        GameObject go = framework
+            .Blueprint(wallFw)
+            .Assemble(wallPrefab, "base")
+            .Build();
+
+        return (go);
     }
 
     private void PlacePickupItems(GameObject parent)
