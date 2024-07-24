@@ -1717,6 +1717,7 @@ MonoBehaviour:
   wallPrefab:
   - {fileID: 890734187571043493, guid: b435411bf49956b4c85d778842553eb9, type: 3}
   - {fileID: 4947980275697688154, guid: 0203b3c9ed931a84ca1a51446c44587c, type: 3}
+  robot: {fileID: 3379212433766985041, guid: 5b8bebfcc2d722b44ac487f1770006e2, type: 3}
 --- !u!1 &2005727021
 GameObject:
   m_ObjectHideFlags: 0

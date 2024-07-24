@@ -14,6 +14,8 @@ public class EnvironmentCntrl : MonoBehaviour
 
     [SerializeField] private GameObject[] wallPrefab;
 
+    [SerializeField] private GameObject robot;
+
     private float offset = 17.5f;
     private float z = 0.0f;
     private float diff;
@@ -72,6 +74,7 @@ public class EnvironmentCntrl : MonoBehaviour
             .Build();
 
         PlacePickupItems(plate);
+        CreateEnemy(plate);
 
         z += offset;
     }
@@ -86,6 +89,13 @@ public class EnvironmentCntrl : MonoBehaviour
             .Build();
 
         return (go);
+    }
+
+    private void CreateEnemy(GameObject parent)
+    {
+        GameObject enemy = Instantiate(robot, parent.transform);
+
+        enemy.transform.localPosition = Vector3.zero;
     }
 
     private void PlacePickupItems(GameObject parent)
