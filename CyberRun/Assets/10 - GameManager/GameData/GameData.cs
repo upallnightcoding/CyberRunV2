@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameData : ScriptableObject
 {
     [Header("Player Attributes")]
-    public float speed;
+    public float playerSpeed = 4.0f;
 
     [Space]
     [Header("Environment Attributes")]

@@ -8,13 +8,15 @@ public class EnvironmentCntrl : MonoBehaviour
     [SerializeField] private GameObject environment;
     [SerializeField] private Transform player;
 
-    [SerializeField] private GameObject[] pickupItems;
+    [SerializeField] private GameObject[] targetItems;
     [SerializeField] private GameObject plateFw;
     [SerializeField] private GameObject wallFw;
 
     [SerializeField] private GameObject[] wallPrefab;
 
     [SerializeField] private GameObject robot;
+
+    [SerializeField] private GameObject[] pickupItems;
 
     private float offset = 17.5f;
     private float z = 0.0f;
@@ -45,7 +47,7 @@ public class EnvironmentCntrl : MonoBehaviour
         GameObject plate = 
             Instantiate(plateFw, new Vector3(0.0f, 0.0f, z), Quaternion.identity);
 
-        PlacePickupItems(plate);
+        PlaceTargetItem(plate);
 
         z += offset;
     }
@@ -73,8 +75,9 @@ public class EnvironmentCntrl : MonoBehaviour
             .Position(new Vector3(0.0f, 0.0f, z))
             .Build();
 
-        PlacePickupItems(plate);
-        CreateEnemy(plate);
+        //PlaceTargetItem(plate);
+        //CreateEnemy(plate);
+        PlacePickupItem(plate);
 
         z += offset;
     }
@@ -98,13 +101,22 @@ public class EnvironmentCntrl : MonoBehaviour
         enemy.transform.localPosition = Vector3.zero;
     }
 
-    private void PlacePickupItems(GameObject parent)
+    private void PlacePickupItem(GameObject parent)
+    {
+        GameObject pickup = Instantiate(pickupItems[0], parent.transform);
+
+        Vector2 position = Random.insideUnitCircle * 7.0f;
+
+        pickup.transform.localPosition = new Vector3(position.x, gameData.pickItemHeight, position.y);
+    }
+
+    private void PlaceTargetItem(GameObject parent)
     {
         int n = 5;
 
         for (int i = 0; i < n; i++)
         {
-            GameObject coin = Instantiate(pickupItems[0], parent.transform);
+            GameObject coin = Instantiate(targetItems[0], parent.transform);
 
             Vector2 position = Random.insideUnitCircle * 7.0f;
 

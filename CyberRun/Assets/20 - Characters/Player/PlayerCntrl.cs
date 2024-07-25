@@ -23,7 +23,7 @@ public class PlayerCntrl : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
 
         direction = new Vector3(0.0f, 0.0f, 1.0f);
-        speed = gameData.speed;
+        speed = gameData.playerSpeed;
 
         animator.SetFloat("speed", 1.0f);
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickupItemsCntrl : MonoBehaviour
+public class PickupItemCntrl : MonoBehaviour
 {
     [SerializeField] private GameData gameData;
 
