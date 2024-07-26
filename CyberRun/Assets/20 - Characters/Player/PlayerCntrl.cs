@@ -62,4 +62,12 @@ public class PlayerCntrl : MonoBehaviour
     {
         EventManager.Instance.OnSliderMovement -= MovePlayer;
     }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.TryGetComponent<PickupItemCntrl>(out PickupItemCntrl pickup))
+        {
+            Debug.Log("Player hit a pickupItem");
+        }
+    }
 }

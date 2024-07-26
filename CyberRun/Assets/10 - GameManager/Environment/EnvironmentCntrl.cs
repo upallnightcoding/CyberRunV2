@@ -75,7 +75,7 @@ public class EnvironmentCntrl : MonoBehaviour
             .Position(new Vector3(0.0f, 0.0f, z))
             .Build();
 
-        //PlaceTargetItem(plate);
+        PlaceTargetItem(plate);
         //CreateEnemy(plate);
         PlacePickupItem(plate);
 
@@ -103,7 +103,9 @@ public class EnvironmentCntrl : MonoBehaviour
 
     private void PlacePickupItem(GameObject parent)
     {
-        GameObject pickup = Instantiate(pickupItems[0], parent.transform);
+        int choice = Random.Range(0, pickupItems.Length);
+
+        GameObject pickup = Instantiate(pickupItems[choice], parent.transform);
 
         Vector2 position = Random.insideUnitCircle * 7.0f;
 
