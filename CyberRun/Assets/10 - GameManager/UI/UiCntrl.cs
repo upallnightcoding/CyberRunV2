@@ -6,23 +6,29 @@ using TMPro;
 
 public class UiCntrl : MonoBehaviour
 {
-    [SerializeField] private Slider posSlider;
-    [SerializeField] private TMP_Text xp;
-    [SerializeField] private Slider healthSlider;
+    [SerializeField] private Slider position_Slider;
+    [SerializeField] private TMP_Text xp_Text;
+    [SerializeField] private Slider health_Slider;
+    [SerializeField] private TMP_Text ammoCount_Text;
 
     // Start is called before the first frame update
     void Start()
     {
-        healthSlider.value = 1.0f;
+        health_Slider.value = 1.0f;
     }
 
     public void UpdateXP(long value)
     {
-        xp.text = value.ToString();
+        xp_Text.text = value.ToString();
+    }
+
+    public void UpdateAmmoCount(int ammoCount, int maxAmmoCount)
+    {
+        ammoCount_Text.text = ammoCount.ToString() + "/" + maxAmmoCount.ToString();
     }
 
     public void PositionChange()
     {
-        EventManager.Instance.InvokeOnSliderMovement(posSlider.value);
+        EventManager.Instance.InvokeOnSliderMovement(position_Slider.value);
     }
 }
