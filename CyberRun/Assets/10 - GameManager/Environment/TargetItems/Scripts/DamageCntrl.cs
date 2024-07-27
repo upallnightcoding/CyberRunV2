@@ -6,16 +6,16 @@ public class DamageCntrl : MonoBehaviour
 {
     private float health = 0.0f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void SetDamage(float health)
+    {
+        this.health = health;
     }
 
     public void TakeDamage(float damage)

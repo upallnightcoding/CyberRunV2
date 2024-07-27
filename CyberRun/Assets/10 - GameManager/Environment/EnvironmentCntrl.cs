@@ -8,7 +8,7 @@ public class EnvironmentCntrl : MonoBehaviour
     [SerializeField] private GameObject environment;
     [SerializeField] private Transform player;
 
-    [SerializeField] private GameObject[] targetItems;
+    [SerializeField] private TargetItemSO[] targetItems;
     [SerializeField] private GameObject plateFw;
     [SerializeField] private GameObject wallFw;
 
@@ -118,11 +118,13 @@ public class EnvironmentCntrl : MonoBehaviour
 
         for (int i = 0; i < n; i++)
         {
-            GameObject coin = Instantiate(targetItems[0], parent.transform);
+            int choice = Random.Range(0, targetItems.Length);
+
+            GameObject target = targetItems[choice].Create(parent.transform);
 
             Vector2 position = Random.insideUnitCircle * 7.0f;
 
-            coin.transform.localPosition = new Vector3(position.x, gameData.pickItemHeight, position.y);
+            target.transform.localPosition = new Vector3(position.x, gameData.pickItemHeight, position.y);
         }
     }
 }

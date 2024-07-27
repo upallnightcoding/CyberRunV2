@@ -2313,7 +2313,9 @@ MonoBehaviour:
   environment: {fileID: 1991103075}
   player: {fileID: 682543542}
   targetItems:
-  - {fileID: 9161573780243593765, guid: 18e72628bdbc7f94db160943fba872fd, type: 3}
+  - {fileID: 11400000, guid: 60b3f5d56ad7c5b45a7cadc93bdfdfaa, type: 2}
+  - {fileID: 11400000, guid: 19c2111d93a0c5b4aafedccb2f24c0d4, type: 2}
+  - {fileID: 11400000, guid: 2ff4f015e1bf9824e88f2bd8473b1536, type: 2}
   plateFw: {fileID: 3675089837959923865, guid: 63b255235a6e58545a036079317a1971, type: 3}
   wallFw: {fileID: 3602166268298457746, guid: 97967cbbc1b17b8449510dcea23ed4a3, type: 3}
   wallPrefab:

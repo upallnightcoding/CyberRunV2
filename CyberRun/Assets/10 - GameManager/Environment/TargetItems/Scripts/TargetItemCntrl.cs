@@ -9,9 +9,9 @@ public class TargetItemCntrl : MonoBehaviour
     private float turn = 0.0f;
 
     // Start is called before the first frame update
-    void Start()
+    public void SetTarget(float turn)
     {
-        
+        this.turn = turn;
     }
 
     // Update is called once per frame
