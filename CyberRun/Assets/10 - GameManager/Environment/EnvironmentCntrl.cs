@@ -18,6 +18,8 @@ public class EnvironmentCntrl : MonoBehaviour
 
     [SerializeField] private GameObject[] pickupItems;
 
+    [SerializeField] private TurretSO[] turretPrefab;
+
     private float offset = 17.5f;
     private float z = 0.0f;
     private float diff;
@@ -77,7 +79,8 @@ public class EnvironmentCntrl : MonoBehaviour
 
         PlaceTargetItem(plate);
         //CreateEnemy(plate);
-        PlacePickupItem(plate);
+        //PlacePickupItem(plate);
+        PlaceTurret(plate);
 
         z += offset;
     }
@@ -99,6 +102,22 @@ public class EnvironmentCntrl : MonoBehaviour
         GameObject enemy = Instantiate(robot, parent.transform);
 
         enemy.transform.localPosition = Vector3.zero;
+    }
+
+    private void PlaceTurret(GameObject parent)
+    {
+        int choice = Random.Range(0, turretPrefab.Length);
+        GameObject turret = turretPrefab[choice].Create(parent);
+
+        bool leftRight = Random.Range(0, 2) == 0;
+
+        float x = (leftRight) ? 7.5f : -7.5f;
+        float y = 0.0f;
+        float z = (Random.insideUnitCircle * 7.0f).y;
+        turret.transform.localPosition = new Vector3(x, y, z);
+
+        float turn = (leftRight) ? 270.0f : 90.0f;
+        turret.transform.localRotation = Quaternion.Euler(0.0f, turn, 0.0f);
     }
 
     private void PlacePickupItem(GameObject parent)

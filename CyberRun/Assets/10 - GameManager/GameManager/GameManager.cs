@@ -14,6 +14,13 @@ public class GameManager : MonoBehaviour
         UpdateXP(0);
     }
 
+    public void NewGame()
+    {
+        EventManager.Instance.InvokeUpdateHealthRatio(100.0f, 100.0f);
+
+        Debug.Log("New Game ...");
+    }
+
     public void UpdateXP(long value)
     {
         xp += value;

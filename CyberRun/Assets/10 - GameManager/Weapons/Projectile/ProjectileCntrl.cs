@@ -20,9 +20,14 @@ public class ProjectileCntrl : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.TryGetComponent<DamageCntrl>(out DamageCntrl health))
+        if (collision.gameObject.TryGetComponent<DamageCntrl>(out DamageCntrl damageHealth))
         {
-            health.TakeDamage(totalDamage);
+            damageHealth.TakeDamage(totalDamage);
+        }
+
+        if (collision.gameObject.TryGetComponent<PlayerDamageCntrl>(out PlayerDamageCntrl playerDamage))
+        {
+            playerDamage.TakeDamage(totalDamage);
         }
 
         Destroy(gameObject);
