@@ -17,6 +17,8 @@ public class PlayerCntrl : MonoBehaviour
 
     private GameObject gun = null;
 
+    private GameObject currentShield = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -68,6 +70,33 @@ public class PlayerCntrl : MonoBehaviour
         if (collision.gameObject.TryGetComponent<PickupItemCntrl>(out PickupItemCntrl pickup))
         {
             Debug.Log("Player hit a pickupItem");
+        }
+
+        if (collision.gameObject.TryGetComponent<ShieldCntrl>(out ShieldCntrl shield))
+        {
+
+            if (currentShield)
+            {
+                Destroy(currentShield);
+            }
+            
+            currentShield = collision.gameObject.transform.parent.gameObject;
+            currentShield.transform.parent = gameObject.transform;
+            //currentShield.transform.position = gameObject.transform.position;
+            StartCoroutine(PositionShield(currentShield.transform.position, gameObject.transform.position));
+        }
+    }
+
+    private IEnumerator PositionShield(Vector3 start, Vector3 end)
+    {
+        float timer = 0.0f;
+        float duration = 1.0f;
+
+        while (timer <= duration)
+        {
+            currentShield.transform.position = Vector3.Slerp(start, gameObject.transform.position, timer/duration);
+            timer += Time.deltaTime;
+            yield return null;
         }
     }
 }

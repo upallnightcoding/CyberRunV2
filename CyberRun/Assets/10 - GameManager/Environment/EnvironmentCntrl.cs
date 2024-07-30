@@ -20,6 +20,8 @@ public class EnvironmentCntrl : MonoBehaviour
 
     [SerializeField] private TurretSO[] turretPrefab;
 
+    [SerializeField] private GameObject[] shieldPrefab;
+
     private float offset = 17.5f;
     private float z = 0.0f;
     private float diff;
@@ -81,6 +83,7 @@ public class EnvironmentCntrl : MonoBehaviour
         //CreateEnemy(plate);
         //PlacePickupItem(plate);
         PlaceTurret(plate);
+        PlaceShieldItem(plate);
 
         z += offset;
     }
@@ -129,6 +132,17 @@ public class EnvironmentCntrl : MonoBehaviour
         Vector2 position = Random.insideUnitCircle * 7.0f;
 
         pickup.transform.localPosition = new Vector3(position.x, gameData.pickItemHeight, position.y);
+    }
+
+    private void PlaceShieldItem(GameObject parent)
+    {
+        int choice = Random.Range(0, shieldPrefab.Length);
+
+        GameObject shield = Instantiate(shieldPrefab[choice], parent.transform);
+
+        Vector2 position = Random.insideUnitCircle * 7.0f;
+
+        shield.transform.localPosition = new Vector3(position.x, 0.0f, position.y);
     }
 
     private void PlaceTargetItem(GameObject parent)
