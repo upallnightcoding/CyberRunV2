@@ -15,7 +15,7 @@ public class TargetItemSO : ScriptableObject
     {
         GameObject target = Instantiate(prefab, parent);
         target.GetComponent<TargetItemCntrl>().SetTarget(turn);
-        target.GetComponent<DamageCntrl>().SetDamage(health);
+        target.GetComponent<DamageCntrl>().SetHealth(health);
 
         return (target);
     }

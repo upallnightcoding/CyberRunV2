@@ -22,6 +22,8 @@ public class EnvironmentCntrl : MonoBehaviour
 
     [SerializeField] private GameObject[] shieldPrefab;
 
+    [SerializeField] private GameObject[] papersPrefab;
+
     private float offset = 17.5f;
     private float z = 0.0f;
     private float diff;
@@ -76,11 +78,12 @@ public class EnvironmentCntrl : MonoBehaviour
             .Apply(CreateWall(), "Anchor11", -90.0f)
             .Apply(CreateWall(), "Anchor12", -90.0f)
             .Apply(CreateWall(), "Anchor13", -90.0f)
+            .Decorate(15, papersPrefab, 7.5f)
             .Position(new Vector3(0.0f, 0.0f, z))
             .Build();
 
         PlaceTargetItem(plate);
-        //CreateEnemy(plate);
+        CreateEnemy(plate);
         //PlacePickupItem(plate);
         PlaceTurret(plate);
         PlaceShieldItem(plate);
@@ -100,11 +103,19 @@ public class EnvironmentCntrl : MonoBehaviour
         return (go);
     }
 
+    /**
+     * CreateEnemy - 
+     */
     private void CreateEnemy(GameObject parent)
     {
-        GameObject enemy = Instantiate(robot, parent.transform);
+        for (int i = 0; i < 4; i++)
+        {
+            GameObject enemy = Instantiate(robot, parent.transform);
 
-        enemy.transform.localPosition = Vector3.zero;
+            Vector2 position = Random.insideUnitCircle * 7.0f;
+
+            enemy.transform.localPosition = new Vector3(position.x, 0.0f, position.y);
+        }
     }
 
     private void PlaceTurret(GameObject parent)

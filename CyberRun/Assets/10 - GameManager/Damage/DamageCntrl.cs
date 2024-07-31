@@ -12,9 +12,11 @@ public class DamageCntrl : MonoBehaviour
         this.health = health;
     }
 
-    public void SetDamage(float health)
+    public virtual void Damage()
     {
-        this.health = health;
+        EventManager.Instance.InvokeOnUpdateXP(10);
+
+        Destroy(gameObject);
     }
 
     public void TakeDamage(float damage)
@@ -23,9 +25,7 @@ public class DamageCntrl : MonoBehaviour
 
         if (health <= 0.0f)
         {
-            EventManager.Instance.InvokeOnUpdateXP(10);
-
-            Destroy(gameObject);
+            Damage();
         }
     }
 }
