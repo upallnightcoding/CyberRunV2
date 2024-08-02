@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a96bc55ada88b949bf3b48d7c9ecc32, type: 3}
   m_Name: ChevronTargetItem
   m_EditorClassIdentifier: 
+  gameData: {fileID: 11400000, guid: 5e27ab6b340ab4746ad65aabb40ade0a, type: 2}
   prefab: {fileID: 9161573780243593765, guid: 7960b552b911f764aa91e85b12d343af, type: 3}
+  createPrefab: {fileID: 5786930421124503644, guid: 6c3644f24de22434e832bfe0872ccaa6, type: 3}
   health: 0
   turn: 10
+  xp: 10

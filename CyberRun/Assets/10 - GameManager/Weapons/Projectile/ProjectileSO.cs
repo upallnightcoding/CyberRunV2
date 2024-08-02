@@ -13,12 +13,12 @@ public class ProjectileSO : ScriptableObject
 
     public float speed = 300.0f;
 
-    public GameObject Create(Vector3 muzzlePoint, Vector3 direction)
+    public float destroyTiming = 3.0f;
+
+    public void Create(Vector3 muzzlePoint, Vector3 direction)
     {
         GameObject projectile = Instantiate(prefab, muzzlePoint, Quaternion.identity);
         projectile.GetComponentInChildren<Rigidbody>().AddForce(direction * speed, ForceMode.Impulse);
-        Destroy(projectile, 3.0f);
-
-        return (projectile);
+        Destroy(projectile, destroyTiming);
     }
 }

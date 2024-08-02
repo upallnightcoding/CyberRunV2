@@ -14,7 +14,7 @@ public class EnvironmentCntrl : MonoBehaviour
 
     [SerializeField] private GameObject[] wallPrefab;
 
-    [SerializeField] private GameObject robot;
+    [SerializeField] private EnemySO enemy;
 
     [SerializeField] private GameObject[] pickupItems;
 
@@ -83,10 +83,10 @@ public class EnvironmentCntrl : MonoBehaviour
             .Build();
 
         PlaceTargetItem(plate);
-        CreateEnemy(plate);
-        //PlacePickupItem(plate);
+        //CreateEnemy(plate);
+        PlacePickupItem(plate);
         PlaceTurret(plate);
-        PlaceShieldItem(plate);
+        //PlaceShieldItem(plate);
 
         z += offset;
     }
@@ -110,11 +110,7 @@ public class EnvironmentCntrl : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
-            GameObject enemy = Instantiate(robot, parent.transform);
-
-            Vector2 position = Random.insideUnitCircle * 7.0f;
-
-            enemy.transform.localPosition = new Vector3(position.x, 0.0f, position.y);
+            enemy.Create(parent);
         }
     }
 
@@ -165,10 +161,6 @@ public class EnvironmentCntrl : MonoBehaviour
             int choice = Random.Range(0, targetItems.Length);
 
             GameObject target = targetItems[choice].Create(parent.transform);
-
-            Vector2 position = Random.insideUnitCircle * 7.0f;
-
-            target.transform.localPosition = new Vector3(position.x, gameData.pickItemHeight, position.y);
         }
     }
 }

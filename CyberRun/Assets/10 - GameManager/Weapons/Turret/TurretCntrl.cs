@@ -38,8 +38,7 @@ public class TurretCntrl : MonoBehaviour
                 yield return null;
             }
 
-            GameObject shot = projectile.Create(muzzlePoint.position, transform.forward);
-            Destroy(shot, 2.0f);
+            projectile.Create(muzzlePoint.position, transform.forward);
             yield return null;
         }
     }

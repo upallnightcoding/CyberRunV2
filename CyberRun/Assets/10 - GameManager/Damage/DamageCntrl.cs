@@ -6,17 +6,14 @@ public class DamageCntrl : MonoBehaviour
 {
     private float health = 0.0f;
 
+    private IDamageCntrl controls = null;
+
     // Update is called once per frame
-    public void SetHealth(float health)
+    public void Set(IDamageCntrl controls)
     {
-        this.health = health;
-    }
+        this.controls = controls;
 
-    public virtual void Damage()
-    {
-        EventManager.Instance.InvokeOnUpdateXP(10);
-
-        Destroy(gameObject);
+        this.health = controls.GetHealth();
     }
 
     public void TakeDamage(float damage)
@@ -25,7 +22,9 @@ public class DamageCntrl : MonoBehaviour
 
         if (health <= 0.0f)
         {
-            Damage();
+            controls.Kill(Vector3.zero);
+
+            Destroy(gameObject);
         }
     }
 }
