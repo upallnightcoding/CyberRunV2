@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Robot
   m_EditorClassIdentifier: 
   prefab: {fileID: 3379212433766985041, guid: 5b8bebfcc2d722b44ac487f1770006e2, type: 3}
-  killPrefab: {fileID: 0}
+  killPrefab: {fileID: 6067632163454970390, guid: 14946a4c8b2e0324fbed4a15f06a9397, type: 3}
+  health: 0
+  xp: 0

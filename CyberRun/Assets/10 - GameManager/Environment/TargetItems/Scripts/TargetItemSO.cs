@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TargetItem", menuName = "CyberRun/Target")]
 public class TargetItemSO : ScriptableObject, IDamageCntrl
 {
-
     public GameData gameData;
 
     public GameObject prefab;

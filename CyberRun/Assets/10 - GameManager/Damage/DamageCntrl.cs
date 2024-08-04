@@ -22,9 +22,16 @@ public class DamageCntrl : MonoBehaviour
 
         if (health <= 0.0f)
         {
-            controls.Kill(Vector3.zero);
+            controls.Kill(gameObject.transform.position);
 
             Destroy(gameObject);
         }
     }
+}
+
+public interface IDamageCntrl
+{
+    public float GetHealth();
+
+    public void Kill(Vector3 position);
 }

@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 4385663477456278742}
   - component: {fileID: 7218667371183581624}
   - component: {fileID: 920398191010940411}
-  - component: {fileID: 186805118413361593}
+  - component: {fileID: 9144582536233225684}
   m_Layer: 0
   m_Name: RobotPrefab
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60,7 +60,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7625992, y: 1.7171893, z: 1}
   m_Center: {x: -0.012494773, y: 0.84766126, z: 0}
---- !u!114 &186805118413361593
+--- !u!114 &9144582536233225684
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -69,10 +69,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3379212433766985041}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29cbf69bdc2af254993fcb3cabff2e27, type: 3}
+  m_Script: {fileID: 11500000, guid: 01cc1821e71c35b4e8cc1f51a4317049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionPrefab: {fileID: 6067632163454970390, guid: 14946a4c8b2e0324fbed4a15f06a9397, type: 3}
 --- !u!1001 &3597890553688320637
 PrefabInstance:
   m_ObjectHideFlags: 0

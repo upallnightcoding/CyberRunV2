@@ -48,16 +48,6 @@ public class EnvironmentCntrl : MonoBehaviour
         }
     }
 
-    private void xxxCreatePlate()
-    {
-        GameObject plate = 
-            Instantiate(plateFw, new Vector3(0.0f, 0.0f, z), Quaternion.identity);
-
-        PlaceTargetItem(plate);
-
-        z += offset;
-    }
-
     private void CreatePlate()
     {
         Framework framework = new();
@@ -83,7 +73,7 @@ public class EnvironmentCntrl : MonoBehaviour
             .Build();
 
         PlaceTargetItem(plate);
-        //CreateEnemy(plate);
+        PlaceEnemy(plate);
         PlacePickupItem(plate);
         PlaceTurret(plate);
         //PlaceShieldItem(plate);
@@ -106,7 +96,7 @@ public class EnvironmentCntrl : MonoBehaviour
     /**
      * CreateEnemy - 
      */
-    private void CreateEnemy(GameObject parent)
+    private void PlaceEnemy(GameObject parent)
     {
         for (int i = 0; i < 4; i++)
         {

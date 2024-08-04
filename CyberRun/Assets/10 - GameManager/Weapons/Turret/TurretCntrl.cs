@@ -10,7 +10,9 @@ public class TurretCntrl : MonoBehaviour
 
     private float gap = 1.0f;
 
-    // Start is called before the first frame update
+    /**
+     * SetTurret() - 
+     */
     public void SetTurret(ProjectileSO projectile)
     {
         this.projectile = projectile;
@@ -18,12 +20,9 @@ public class TurretCntrl : MonoBehaviour
         StartCoroutine(Firer());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    /**
+     * Firer() - 
+     */
     private IEnumerator Firer()
     {
         bool firing = true;
@@ -38,7 +37,7 @@ public class TurretCntrl : MonoBehaviour
                 yield return null;
             }
 
-            projectile.Create(muzzlePoint.position, transform.forward);
+            projectile.Create(muzzlePoint.position, transform.forward, "Enemy");
             yield return null;
         }
     }

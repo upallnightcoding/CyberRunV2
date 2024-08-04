@@ -15,10 +15,12 @@ public class ProjectileSO : ScriptableObject
 
     public float destroyTiming = 3.0f;
 
-    public void Create(Vector3 muzzlePoint, Vector3 direction)
+    public void Create(Vector3 muzzlePoint, Vector3 direction, string ignore = null)
     {
         GameObject projectile = Instantiate(prefab, muzzlePoint, Quaternion.identity);
         projectile.GetComponentInChildren<Rigidbody>().AddForce(direction * speed, ForceMode.Impulse);
+        projectile.GetComponent<ProjectileCntrl>().Set(ignore);
+
         Destroy(projectile, destroyTiming);
     }
 }

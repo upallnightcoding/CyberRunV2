@@ -40,9 +40,4 @@ public class EnemySO : ScriptableObject, IDamageCntrl
     public float GetHealth() => health;
 }
 
-public interface IDamageCntrl
-{
-    public float GetHealth();
 
-    public void Kill(Vector3 position);
-}

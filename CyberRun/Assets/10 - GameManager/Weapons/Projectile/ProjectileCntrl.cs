@@ -6,28 +6,18 @@ public class ProjectileCntrl : MonoBehaviour
 {
     private float totalDamage = 10.0f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private string ignore = null;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public void Set(string ignore) => this.ignore = ignore;
 
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.TryGetComponent<DamageCntrl>(out DamageCntrl damageHealth))
         {
-            damageHealth.TakeDamage(totalDamage);
-        }
-
-        if (collision.gameObject.TryGetComponent<PlayerDamageCntrl>(out PlayerDamageCntrl playerDamage))
-        {
-            playerDamage.TakeDamage(totalDamage);
+            if ((ignore == null) || ((ignore != null) && (!collision.transform.gameObject.CompareTag(ignore))))
+            {
+                damageHealth.TakeDamage(totalDamage);
+            }
         }
 
         Destroy(gameObject);
