@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     public void NewGame()
     {
-        EventManager.Instance.InvokeUpdateHealthRatio(100.0f, 100.0f);
+        EventManager.Instance.InvokeOnUpdateHealth(100.0f, 100.0f);
 
         Debug.Log("New Game ...");
     }

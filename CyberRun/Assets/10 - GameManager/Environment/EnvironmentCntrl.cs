@@ -16,7 +16,7 @@ public class EnvironmentCntrl : MonoBehaviour
 
     [SerializeField] private EnemySO enemy;
 
-    [SerializeField] private GameObject[] pickupItems;
+    [SerializeField] private PickupItemSO[] pickupItems;
 
     [SerializeField] private TurretSO[] turretPrefab;
 
@@ -27,15 +27,19 @@ public class EnvironmentCntrl : MonoBehaviour
     private float offset = 17.5f;
     private float z = 0.0f;
     private float diff;
+    private int nPlates = 7;
+
+    private Queue<GameObject> plateQueue = new();
 
     // Start is called before the first frame update
     void Start()
     {
-        diff = offset * 5;
+        diff = offset * (nPlates-1);
+        z = -offset * 2.0f; 
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < nPlates; i++)
         {
-            CreatePlate();
+            plateQueue.Enqueue(CreatePlate());
         }
     }
 
@@ -44,11 +48,16 @@ public class EnvironmentCntrl : MonoBehaviour
     {
         if (player.transform.position.z + diff > z)
         {
-            CreatePlate();
+            plateQueue.Enqueue(CreatePlate());
+
+            Destroy(plateQueue.Dequeue());
         }
     }
 
-    private void CreatePlate()
+    /**
+     * CreatePlate() - 
+     */
+    private GameObject CreatePlate()
     {
         Framework framework = new();
 
@@ -79,6 +88,8 @@ public class EnvironmentCntrl : MonoBehaviour
         //PlaceShieldItem(plate);
 
         z += offset;
+
+        return (plate);
     }
 
     private GameObject CreateWall()
@@ -124,11 +135,7 @@ public class EnvironmentCntrl : MonoBehaviour
     {
         int choice = Random.Range(0, pickupItems.Length);
 
-        GameObject pickup = Instantiate(pickupItems[choice], parent.transform);
-
-        Vector2 position = Random.insideUnitCircle * 7.0f;
-
-        pickup.transform.localPosition = new Vector3(position.x, gameData.pickItemHeight, position.y);
+        pickupItems[choice].Create(parent);
     }
 
     private void PlaceShieldItem(GameObject parent)

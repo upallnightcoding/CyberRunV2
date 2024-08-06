@@ -22,7 +22,7 @@ public class PlayerDamageCntrl : MonoBehaviour
     {
         health -= damage;
 
-        EventManager.Instance.InvokeUpdateHealthRatio(health, maxHealth);
+        EventManager.Instance.InvokeOnUpdateHealth(health, maxHealth);
         Debug.Log("Player health is zero ...");
 
         if (health <= 0.0f)

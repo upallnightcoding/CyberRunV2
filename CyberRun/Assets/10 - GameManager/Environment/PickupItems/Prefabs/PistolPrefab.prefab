@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 4086406425434642878}
   - component: {fileID: 579029736582766708}
   - component: {fileID: 5618325427542372017}
-  m_Layer: 0
+  - component: {fileID: 8983771413458491331}
+  m_Layer: 6
   m_Name: PistolPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,6 +61,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.3192088, y: 0.4875351, z: 0.66353035}
   m_Center: {x: -0.010012329, y: -0.037360385, z: 0.090828896}
+--- !u!114 &8983771413458491331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7800888135056622660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6602674e95efc3f47aa8c8222c2af6a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7289751884350790629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67,6 +80,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4086406425434642878}
     m_Modifications:
+    - target: {fileID: 18307086864425411, guid: 9d2139839f859d9459f79283f96adafd, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3716988344788578349, guid: 9d2139839f859d9459f79283f96adafd, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -114,6 +131,14 @@ PrefabInstance:
     - target: {fileID: 4097912377001093783, guid: 9d2139839f859d9459f79283f96adafd, type: 3}
       propertyPath: m_Name
       value: SM_Wep_Pistol_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4097912377001093783, guid: 9d2139839f859d9459f79283f96adafd, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401180361662812692, guid: 9d2139839f859d9459f79283f96adafd, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d2139839f859d9459f79283f96adafd, type: 3}

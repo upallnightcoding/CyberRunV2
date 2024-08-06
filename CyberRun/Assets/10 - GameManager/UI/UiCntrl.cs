@@ -11,6 +11,9 @@ public class UiCntrl : MonoBehaviour
     [SerializeField] private Slider health_Slider;
     [SerializeField] private TMP_Text healthRatio_Text;
     [SerializeField] private TMP_Text ammoCount_Text;
+    [SerializeField] private GameObject currentGunPosition;
+
+    private GameObject cameraGun = null;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +38,17 @@ public class UiCntrl : MonoBehaviour
         healthRatio_Text.text = ((int)health).ToString() + "/" + ((int)maxHealth).ToString();
     }
 
+    public void UpdateChangeGun(GameObject pickup)
+    {
+        if (cameraGun != null) {
+            Destroy(cameraGun);
+        }
+
+        cameraGun = Instantiate(pickup, Vector3.zero, Quaternion.identity);
+        Vector3 position = pickup.GetComponent<MiniCameraPosCntrl>().CameraPos;
+        cameraGun.transform.position = position;
+    }
+
     public void PositionChange()
     {
         EventManager.Instance.InvokeOnSliderMovement(position_Slider.value);
@@ -42,11 +56,13 @@ public class UiCntrl : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.Instance.OnUpdateHealthRatio += UpdateHealthRatio;
+        EventManager.Instance.OnUpdateHealth += UpdateHealthRatio;
+        EventManager.Instance.OnChangeGun += UpdateChangeGun;
     }
 
     private void OnDisable()
     {
-        EventManager.Instance.OnUpdateHealthRatio -= UpdateHealthRatio;
+        EventManager.Instance.OnUpdateHealth -= UpdateHealthRatio;
+        EventManager.Instance.OnChangeGun -= UpdateChangeGun;
     }
 }

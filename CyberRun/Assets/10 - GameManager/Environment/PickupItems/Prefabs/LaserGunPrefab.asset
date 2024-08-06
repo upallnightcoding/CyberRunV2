@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abc6c459f9470a94997a2614d54a4af7, type: 3}
   m_Name: LaserGunPrefab
   m_EditorClassIdentifier: 
+  gameData: {fileID: 11400000, guid: 5e27ab6b340ab4746ad65aabb40ade0a, type: 2}
   prefab: {fileID: 130618054043132966, guid: 334f4c9fe888d694d9454181d7ec1bce, type: 3}
+  camerPos: {x: 100, y: -0.13, z: 0.2}

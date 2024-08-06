@@ -55,26 +55,16 @@ public class PlayerCntrl : MonoBehaviour
         direction = new Vector3(movement, 0.0f, 1.0f).normalized;
     }
 
-    private void OnEnable()
-    {
-        EventManager.Instance.OnSliderMovement += MovePlayer;
-    }
-
-    private void OnDisable()
-    {
-        EventManager.Instance.OnSliderMovement -= MovePlayer;
-    }
-
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.TryGetComponent<PickupItemCntrl>(out PickupItemCntrl pickup))
         {
-            Debug.Log("Player hit a pickupItem");
+            Debug.Log($"PlayerCntrl - OnTriggerEnter - PickupItemCntrl - {collision.gameObject}");
+            EventManager.Instance.InvokeOnChangeGun(collision.gameObject);
         }
 
         if (collision.gameObject.TryGetComponent<ShieldCntrl>(out ShieldCntrl shield))
         {
-
             if (currentShield)
             {
                 Destroy(currentShield);
@@ -98,5 +88,15 @@ public class PlayerCntrl : MonoBehaviour
             timer += Time.deltaTime;
             yield return null;
         }
+    }
+
+    private void OnEnable()
+    {
+        EventManager.Instance.OnSliderMovement += MovePlayer;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance.OnSliderMovement -= MovePlayer;
     }
 }

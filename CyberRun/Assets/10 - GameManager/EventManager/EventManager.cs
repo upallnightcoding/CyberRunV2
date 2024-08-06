@@ -13,9 +13,11 @@ public class EventManager
     public event Action<long> OnUpdateXP = delegate { };
     public void InvokeOnUpdateXP(long xp) => OnUpdateXP.Invoke(xp);
 
-    public event Action<float, float> OnUpdateHealthRatio = delegate { };
-    public void InvokeUpdateHealthRatio(float health, float maxHealth) => 
-        OnUpdateHealthRatio.Invoke(health, maxHealth);
+    public event Action<float, float> OnUpdateHealth = delegate { };
+    public void InvokeOnUpdateHealth(float health, float maxHealth) => OnUpdateHealth.Invoke(health, maxHealth);
+
+    public event Action<GameObject> OnChangeGun = delegate { };
+    public void InvokeOnChangeGun(GameObject weapon) => OnChangeGun.Invoke(weapon);
 
     // Event Manager Singleton
     //========================

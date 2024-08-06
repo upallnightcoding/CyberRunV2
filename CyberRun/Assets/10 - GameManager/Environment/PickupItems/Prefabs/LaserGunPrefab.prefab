@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 5982921916584965571}
   - component: {fileID: 5103618506611782053}
   - component: {fileID: 6452800833013705144}
-  m_Layer: 0
+  - component: {fileID: -8325987924965431164}
+  m_Layer: 6
   m_Name: LaserGunPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,6 +61,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-8325987924965431164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130618054043132966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6602674e95efc3f47aa8c8222c2af6a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5909609190381567549
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67,13 +80,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5982921916584965571}
     m_Modifications:
+    - target: {fileID: 755706609039957825, guid: 5efeca157fcdc684d9cb6a59c0865a7c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2903978163346818090, guid: 5efeca157fcdc684d9cb6a59c0865a7c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 0cb44352831fc1a439a0ecff245686a4, type: 2}
+    - target: {fileID: 3050587946862877146, guid: 5efeca157fcdc684d9cb6a59c0865a7c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3696888705666573823, guid: 5efeca157fcdc684d9cb6a59c0865a7c, type: 3}
       propertyPath: m_Name
       value: SM_Wep_Laser_Gun_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3696888705666573823, guid: 5efeca157fcdc684d9cb6a59c0865a7c, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4036962615859658565, guid: 5efeca157fcdc684d9cb6a59c0865a7c, type: 3}
       propertyPath: m_RootOrder
