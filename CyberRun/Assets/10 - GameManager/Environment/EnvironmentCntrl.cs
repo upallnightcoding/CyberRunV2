@@ -5,11 +5,13 @@ using UnityEngine;
 public class EnvironmentCntrl : MonoBehaviour
 {
     [SerializeField] private GameData gameData;
+
     [SerializeField] private GameObject environment;
-    [SerializeField] private Transform player;
+    [SerializeField] private GameObject player;
 
     [SerializeField] private TargetItemSO[] targetItems;
     [SerializeField] private GameObject plateFw;
+    [SerializeField] private GameObject platformfw;
     [SerializeField] private GameObject wallFw;
 
     [SerializeField] private GameObject[] wallPrefab;
@@ -29,13 +31,45 @@ public class EnvironmentCntrl : MonoBehaviour
     private float diff;
     private int nPlates = 7;
 
+    private int currentLevel = 0;
+
     private Queue<GameObject> plateQueue = new();
 
-    // Start is called before the first frame update
-    void Start()
+    private bool startRunning = false;
+
+    public void Start()
     {
-        diff = offset * (nPlates-1);
-        z = -offset * 2.0f; 
+        CreatePlatform();
+    }
+
+    // Start is called before the first frame update
+    public void NewRun(int level)
+    {
+        InitializeEnvironment();
+
+        player.SetActive(true);
+
+        startRunning = true;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (startRunning)
+        {
+            if (player.transform.position.z + diff > z)
+            {
+                plateQueue.Enqueue(CreatePlate());
+
+                Destroy(plateQueue.Dequeue());
+            }
+        }
+    }
+
+    private void InitializeEnvironment()
+    {
+        diff = offset * (nPlates - 1);
+        z = -offset * 2.0f;
 
         for (int i = 0; i < nPlates; i++)
         {
@@ -43,20 +77,6 @@ public class EnvironmentCntrl : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (player.transform.position.z + diff > z)
-        {
-            plateQueue.Enqueue(CreatePlate());
-
-            Destroy(plateQueue.Dequeue());
-        }
-    }
-
-    /**
-     * CreatePlate() - 
-     */
     private GameObject CreatePlate()
     {
         Framework framework = new();
@@ -88,6 +108,22 @@ public class EnvironmentCntrl : MonoBehaviour
         //PlaceShieldItem(plate);
 
         z += offset;
+
+        return (plate);
+    }
+
+    /**
+     * CreatePlatform() - 
+     */
+    private GameObject CreatePlatform()
+    {
+        Framework framework = new();
+
+        GameObject plate = framework
+            .Blueprint(platformfw)
+            .Decorate(15, papersPrefab, 7.5f)
+            .Position(new Vector3(0.0f, 0.0f, 0.0f))
+            .Build();
 
         return (plate);
     }
@@ -160,4 +196,16 @@ public class EnvironmentCntrl : MonoBehaviour
             GameObject target = targetItems[choice].Create(parent.transform);
         }
     }
+
+    private void OnEnable()
+    {
+        EventManager.Instance.OnNewRun += NewRun;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance.OnNewRun -= NewRun;
+    }
 }
+
+

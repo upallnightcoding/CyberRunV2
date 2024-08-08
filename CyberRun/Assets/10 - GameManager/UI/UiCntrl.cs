@@ -13,12 +13,47 @@ public class UiCntrl : MonoBehaviour
     [SerializeField] private TMP_Text ammoCount_Text;
     [SerializeField] private GameObject currentGunPosition;
 
+    [Header("Level Count Down")]
+    [SerializeField] private Slider countDownSlider;
+    [SerializeField] private TMP_Text levelText;
+
+    [Header("UI Panels")]
+    [SerializeField] private GameObject mainMenuPanel;
+    [SerializeField] private GameObject nextLevelPanel;
+    [SerializeField] private GameObject gamePlayPanel;
+
+    [SerializeField] private TMP_Text gameTime;
+
     private GameObject cameraGun = null;
 
     // Start is called before the first frame update
     void Start()
     {
         health_Slider.value = 1.0f;
+    }
+
+    public void showNextLevelPanel()
+    {
+        mainMenuPanel.SetActive(false);
+        gamePlayPanel.SetActive(false);
+        nextLevelPanel.SetActive(true);
+    }
+
+    public void showGamePlayPanel()
+    {
+        mainMenuPanel.SetActive(false);
+        gamePlayPanel.SetActive(true);
+        nextLevelPanel.SetActive(false);
+    }
+
+    public void SetLevel(int level)
+    {
+        levelText.text = "Level " + ((level == 0) ? "Tutorial" : (level).ToString());
+    }
+
+    public void CountDownSlider(float value)
+    {
+        countDownSlider.value = value;
     }
 
     public void UpdateXP(long value)
@@ -54,15 +89,34 @@ public class UiCntrl : MonoBehaviour
         EventManager.Instance.InvokeOnSliderMovement(position_Slider.value);
     }
 
+    private void NewRun(int level)
+    {
+        
+    }
+
+    private IEnumerator StartGameTimer(int level)
+    {
+        bool isRunning = true;
+        int seconds = 0;
+        int minutes = 0;
+
+        while (isRunning)
+        {
+            gameTime.text = minutes.ToString() + ":" + seconds.ToString();
+        }
+
+        yield return null;
+    }
+
     private void OnEnable()
     {
-        EventManager.Instance.OnUpdateHealth += UpdateHealthRatio;
+        //EventManager.Instance.OnUpdateHealth += UpdateHealthRatio;
         EventManager.Instance.OnChangeGun += UpdateChangeGun;
     }
 
     private void OnDisable()
     {
-        EventManager.Instance.OnUpdateHealth -= UpdateHealthRatio;
+        //EventManager.Instance.OnUpdateHealth -= UpdateHealthRatio;
         EventManager.Instance.OnChangeGun -= UpdateChangeGun;
     }
 }

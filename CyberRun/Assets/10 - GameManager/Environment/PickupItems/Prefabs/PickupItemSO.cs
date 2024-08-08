@@ -15,7 +15,6 @@ public class PickupItemSO : ScriptableObject
     {
         GameObject pickup = Instantiate(prefab, parent.transform);
         pickup.GetComponent<MiniCameraPosCntrl>().CameraPos = camerPos;
-        Debug.Log($"Camer Position: {camerPos}");
 
         Vector2 position = Random.insideUnitCircle * 7.0f;
 

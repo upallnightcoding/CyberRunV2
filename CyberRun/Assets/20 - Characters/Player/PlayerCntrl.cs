@@ -13,11 +13,13 @@ public class PlayerCntrl : MonoBehaviour
     private Animator animator;
 
     private Vector3 direction;
-    private float speed;
+    private float speed = 0.0f;
 
     private GameObject gun = null;
 
     private GameObject currentShield = null;
+
+    private bool isRunning = false;
 
     // Start is called before the first frame update
     void Start()
@@ -25,21 +27,30 @@ public class PlayerCntrl : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
 
         direction = new Vector3(0.0f, 0.0f, 1.0f);
-        speed = gameData.playerSpeed;
-
-        animator.SetFloat("speed", 1.0f);
 
         gun = Instantiate(gunSO.prefab, gunPoint.position, Quaternion.identity);
         gun.transform.SetParent(gunPoint.transform);
     }
 
+    private void NewRun(int level)
+    {
+        speed = gameData.playerSpeed;
+
+        animator.SetFloat("speed", speed);
+        animator.SetTrigger("startrunning");
+
+        isRunning = true;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(speed * direction * Time.deltaTime, Space.World);
-
-        Quaternion rotTarget = Quaternion.LookRotation(direction);
-        this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, rotTarget, 500.0f * Time.deltaTime);
+        if (isRunning)
+        {
+            transform.Translate(speed * direction * Time.deltaTime, Space.World);
+            Quaternion rotTarget = Quaternion.LookRotation(direction);
+            this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, rotTarget, 500.0f * Time.deltaTime);
+        }
     }
 
     public void Fire(InputAction.CallbackContext context)
@@ -93,10 +104,12 @@ public class PlayerCntrl : MonoBehaviour
     private void OnEnable()
     {
         EventManager.Instance.OnSliderMovement += MovePlayer;
+        EventManager.Instance.OnNewRun += NewRun;
     }
 
     private void OnDisable()
     {
         EventManager.Instance.OnSliderMovement -= MovePlayer;
+        EventManager.Instance.OnNewRun -= NewRun;
     }
 }
