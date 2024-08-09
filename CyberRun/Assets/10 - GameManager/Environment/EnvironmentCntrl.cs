@@ -9,21 +9,17 @@ public class EnvironmentCntrl : MonoBehaviour
     [SerializeField] private GameObject environment;
     [SerializeField] private GameObject player;
 
-    [SerializeField] private TargetItemSO[] targetItems;
     [SerializeField] private GameObject plateFw;
     [SerializeField] private GameObject platformfw;
     [SerializeField] private GameObject wallFw;
 
-    [SerializeField] private GameObject[] wallPrefab;
-
     [SerializeField] private EnemySO enemy;
 
+    [SerializeField] private TargetItemSO[] targetItems;
+    [SerializeField] private GameObject[] wallPrefab;
     [SerializeField] private PickupItemSO[] pickupItems;
-
     [SerializeField] private TurretSO[] turretPrefab;
-
     [SerializeField] private GameObject[] shieldPrefab;
-
     [SerializeField] private GameObject[] papersPrefab;
 
     private float offset = 17.5f;
@@ -39,13 +35,16 @@ public class EnvironmentCntrl : MonoBehaviour
 
     public void Start()
     {
+        diff = offset * (nPlates - 1);
+        z = -offset * 2.0f;
+
         CreatePlatform();
     }
 
     // Start is called before the first frame update
-    public void NewRun(int level)
+    public void NewRun(GameLevel gameLevel)
     {
-        InitializeEnvironment();
+        InitializeEnvironment(gameLevel);
 
         player.SetActive(true);
 
@@ -66,11 +65,8 @@ public class EnvironmentCntrl : MonoBehaviour
         }
     }
 
-    private void InitializeEnvironment()
+    private void InitializeEnvironment(GameLevel gameLevel)
     {
-        diff = offset * (nPlates - 1);
-        z = -offset * 2.0f;
-
         for (int i = 0; i < nPlates; i++)
         {
             plateQueue.Enqueue(CreatePlate());
@@ -101,10 +97,10 @@ public class EnvironmentCntrl : MonoBehaviour
             .Position(new Vector3(0.0f, 0.0f, z))
             .Build();
 
-        PlaceTargetItem(plate);
-        PlaceEnemy(plate);
-        PlacePickupItem(plate);
-        PlaceTurret(plate);
+        PlaceTargetItem(5, plate);
+        //PlaceEnemy(plate);
+        //PlacePickupItem(plate);
+        //PlaceTurret(plate);
         //PlaceShieldItem(plate);
 
         z += offset;
@@ -185,10 +181,8 @@ public class EnvironmentCntrl : MonoBehaviour
         shield.transform.localPosition = new Vector3(position.x, 0.0f, position.y);
     }
 
-    private void PlaceTargetItem(GameObject parent)
+    private void PlaceTargetItem(int n, GameObject parent)
     {
-        int n = 5;
-
         for (int i = 0; i < n; i++)
         {
             int choice = Random.Range(0, targetItems.Length);

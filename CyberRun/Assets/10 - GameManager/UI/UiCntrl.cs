@@ -6,12 +6,16 @@ using TMPro;
 
 public class UiCntrl : MonoBehaviour
 {
-    [SerializeField] private Slider position_Slider;
     [SerializeField] private TMP_Text xp_Text;
-    [SerializeField] private Slider health_Slider;
-    [SerializeField] private TMP_Text healthRatio_Text;
     [SerializeField] private TMP_Text ammoCount_Text;
     [SerializeField] private GameObject currentGunPosition;
+
+    [Header("Player Controls")]
+    [SerializeField] private Slider position_Slider;
+
+    [Header("Health Controls")]
+    [SerializeField] private Slider health_Slider;
+    [SerializeField] private TMP_Text healthRatio_Text;
 
     [Header("Level Count Down")]
     [SerializeField] private Slider countDownSlider;
@@ -21,7 +25,9 @@ public class UiCntrl : MonoBehaviour
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject nextLevelPanel;
     [SerializeField] private GameObject gamePlayPanel;
+    [SerializeField] private GameObject levelCompletePanel;
 
+    [Header("Game Timer")]
     [SerializeField] private TMP_Text gameTime;
 
     private GameObject cameraGun = null;
@@ -34,19 +40,34 @@ public class UiCntrl : MonoBehaviour
 
     public void showNextLevelPanel()
     {
-        mainMenuPanel.SetActive(false);
-        gamePlayPanel.SetActive(false);
+        hideAllPanels();
+
         nextLevelPanel.SetActive(true);
     }
 
     public void showGamePlayPanel()
     {
-        mainMenuPanel.SetActive(false);
+        hideAllPanels();
+
         gamePlayPanel.SetActive(true);
-        nextLevelPanel.SetActive(false);
+    }  
+
+    public void showLevelCompletePanel()
+    {
+        hideAllPanels();
+
+        levelCompletePanel.SetActive(true);
     }
 
-    public void SetLevel(int level)
+    private void hideAllPanels()
+    {
+        mainMenuPanel.SetActive(false);
+        gamePlayPanel.SetActive(false);
+        nextLevelPanel.SetActive(false);
+        levelCompletePanel.SetActive(false);
+    }
+
+    public void showLevel(int level)
     {
         levelText.text = "Level " + ((level == 0) ? "Tutorial" : (level).ToString());
     }
@@ -89,12 +110,15 @@ public class UiCntrl : MonoBehaviour
         EventManager.Instance.InvokeOnSliderMovement(position_Slider.value);
     }
 
-    private void NewRun(int level)
+    private void NewRun(GameLevel gameLevel)
     {
-        
+        StartCoroutine(StartGameTimer(gameLevel));        
     }
 
-    private IEnumerator StartGameTimer(int level)
+    /**
+     * StartGameTimer()- 
+     */
+    private IEnumerator StartGameTimer(GameLevel gameLevel)
     {
         bool isRunning = true;
         int seconds = 0;
@@ -102,7 +126,15 @@ public class UiCntrl : MonoBehaviour
 
         while (isRunning)
         {
-            gameTime.text = minutes.ToString() + ":" + seconds.ToString();
+            gameTime.text = minutes.ToString("D2") + ":" + seconds.ToString("D2");
+
+            yield return new WaitForSeconds(1.0f);
+
+            if (seconds++ == 59)
+            {
+                seconds = 0;
+                minutes++;
+            }
         }
 
         yield return null;
@@ -110,13 +142,13 @@ public class UiCntrl : MonoBehaviour
 
     private void OnEnable()
     {
-        //EventManager.Instance.OnUpdateHealth += UpdateHealthRatio;
         EventManager.Instance.OnChangeGun += UpdateChangeGun;
+        EventManager.Instance.OnNewRun += NewRun;
     }
 
     private void OnDisable()
     {
-        //EventManager.Instance.OnUpdateHealth -= UpdateHealthRatio;
         EventManager.Instance.OnChangeGun -= UpdateChangeGun;
+        EventManager.Instance.OnNewRun -= NewRun;
     }
 }

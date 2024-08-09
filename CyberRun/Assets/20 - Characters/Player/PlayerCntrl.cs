@@ -32,7 +32,7 @@ public class PlayerCntrl : MonoBehaviour
         gun.transform.SetParent(gunPoint.transform);
     }
 
-    private void NewRun(int level)
+    private void NewRun(GameLevel gameLevel)
     {
         speed = gameData.playerSpeed;
 
@@ -83,7 +83,7 @@ public class PlayerCntrl : MonoBehaviour
             
             currentShield = collision.gameObject.transform.parent.gameObject;
             currentShield.transform.parent = gameObject.transform;
-            //currentShield.transform.position = gameObject.transform.position;
+
             StartCoroutine(PositionShield(currentShield.transform.position, gameObject.transform.position));
         }
     }

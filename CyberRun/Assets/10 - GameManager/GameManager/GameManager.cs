@@ -8,13 +8,15 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameLevel[] gameLevel;
 
+    private GameLevel currentLevel;
+
     private long xp = 0;
     private int level = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        UpdateXP(0);
+        
     }
 
     /**
@@ -25,17 +27,17 @@ public class GameManager : MonoBehaviour
         uiCntrl.showNextLevelPanel();
         uiCntrl.UpdateHealthRatio(100.0f, 100.0f);
 
-        StartCoroutine(LevelCountDown(level));
+        currentLevel = gameLevel[level];
 
-        Debug.Log("New Game ...");
+        StartCoroutine(LevelCountDown(currentLevel));
     }
 
     /**
      * LevelCountDown()-
      */
-    private IEnumerator LevelCountDown(int level)
+    private IEnumerator LevelCountDown(GameLevel gameLevel)
     {
-        uiCntrl.SetLevel(level);
+        uiCntrl.showLevel(level);
 
         float totalTime = 4.0f;
         float timer = totalTime;
@@ -52,30 +54,51 @@ public class GameManager : MonoBehaviour
 
         uiCntrl.showGamePlayPanel();
 
-        EventManager.Instance.InvokeOnNewRun(level);
+        EventManager.Instance.InvokeOnNewRun(gameLevel);
     }
 
+    /**
+     * UpdateXP() - 
+     */
     public void UpdateXP(long value)
     {
         xp += value;
 
         uiCntrl.UpdateXP(xp);
+
+        if (xp >= currentLevel.xp)
+        {
+            EventManager.Instance.InvokeOnWonLevel();
+        }
+    }
+
+    private void OnWonLevel()
+    {
+        uiCntrl.showLevelCompletePanel();
+
+        currentLevel = gameLevel[++level];
+
+        StartCoroutine(LevelCountDown(currentLevel));
     }
 
     private void OnEnable()
     {
         EventManager.Instance.OnUpdateXP += UpdateXP;
+        EventManager.Instance.OnWonLevel += OnWonLevel;
     }
 
     private void OnDisable()
     {
         EventManager.Instance.OnUpdateXP -= UpdateXP;
+        EventManager.Instance.OnWonLevel -= OnWonLevel;
     }
 }
 
 [System.Serializable]
-class GameLevel
+public class GameLevel
 {
-    [SerializeField] private int xp;
-    [SerializeField] private int nTargetItems;
+    public int level;
+    public string name;
+    public int xp;
+    public int nTargetItems;
 }
