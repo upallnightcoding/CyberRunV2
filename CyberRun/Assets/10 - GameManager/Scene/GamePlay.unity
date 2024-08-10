@@ -27966,7 +27966,7 @@ MonoBehaviour:
     nTargetItems: 5
   - level: 0
     name: 1
-    xp: 200
+    xp: 100
     nTargetItems: 10
 --- !u!4 &2037021677
 Transform:

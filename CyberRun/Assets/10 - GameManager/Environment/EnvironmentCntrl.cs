@@ -193,12 +193,12 @@ public class EnvironmentCntrl : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.Instance.OnNewRun += NewRun;
+        EventManager.Instance.OnStartNewRun += NewRun;
     }
 
     private void OnDisable()
     {
-        EventManager.Instance.OnNewRun -= NewRun;
+        EventManager.Instance.OnStartNewRun -= NewRun;
     }
 }
 

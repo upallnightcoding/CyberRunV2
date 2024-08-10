@@ -24,23 +24,22 @@ public class GameManager : MonoBehaviour
      */
     public void NewRun()
     {
-        uiCntrl.showNextLevelPanel();
-        uiCntrl.UpdateHealthRatio(100.0f, 100.0f);
-
         currentLevel = gameLevel[level];
 
-        StartCoroutine(LevelCountDown(currentLevel));
+        uiCntrl.InitializeNewRun();
+
+        StartCoroutine(StartLevelCountDown(currentLevel));
     }
 
     /**
-     * LevelCountDown()-
+     * StartLevelCountDown()-
      */
-    private IEnumerator LevelCountDown(GameLevel gameLevel)
+    private IEnumerator StartLevelCountDown(GameLevel gameLevel)
     {
-        uiCntrl.showLevel(level);
-
         float totalTime = 4.0f;
         float timer = totalTime;
+
+        uiCntrl.ShowGameLevel(gameLevel);
 
         yield return null;
 
@@ -52,9 +51,7 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        uiCntrl.showGamePlayPanel();
-
-        EventManager.Instance.InvokeOnNewRun(gameLevel);
+        EventManager.Instance.InvokeOnStartNewRun(gameLevel);
     }
 
     /**
@@ -74,11 +71,11 @@ public class GameManager : MonoBehaviour
 
     private void OnWonLevel()
     {
-        uiCntrl.showLevelCompletePanel();
-
         currentLevel = gameLevel[++level];
 
-        StartCoroutine(LevelCountDown(currentLevel));
+        uiCntrl.showLevelCompletePanel();
+
+        StartCoroutine(StartLevelCountDown(currentLevel));
     }
 
     private void OnEnable()

@@ -104,12 +104,12 @@ public class PlayerCntrl : MonoBehaviour
     private void OnEnable()
     {
         EventManager.Instance.OnSliderMovement += MovePlayer;
-        EventManager.Instance.OnNewRun += NewRun;
+        EventManager.Instance.OnStartNewRun += NewRun;
     }
 
     private void OnDisable()
     {
         EventManager.Instance.OnSliderMovement -= MovePlayer;
-        EventManager.Instance.OnNewRun -= NewRun;
+        EventManager.Instance.OnStartNewRun -= NewRun;
     }
 }

@@ -13,8 +13,8 @@ public class EventManager
     public event Action<long> OnUpdateXP = delegate { };
     public void InvokeOnUpdateXP(long xp) => OnUpdateXP.Invoke(xp);
 
-    public event Action<GameLevel> OnNewRun = delegate { };
-    public void InvokeOnNewRun(GameLevel gameLevel) => OnNewRun.Invoke(gameLevel);
+    public event Action<GameLevel> OnStartNewRun = delegate { };
+    public void InvokeOnStartNewRun(GameLevel gameLevel) => OnStartNewRun.Invoke(gameLevel);
 
     public event Action<float, float> OnUpdateHealth = delegate { };
     public void InvokeOnUpdateHealth(float health, float maxHealth) => OnUpdateHealth.Invoke(health, maxHealth);

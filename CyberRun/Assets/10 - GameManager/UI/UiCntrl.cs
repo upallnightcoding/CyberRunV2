@@ -38,14 +38,15 @@ public class UiCntrl : MonoBehaviour
         health_Slider.value = 1.0f;
     }
 
-    public void showNextLevelPanel()
+    public void ShowNextLevelPanel()
     {
         hideAllPanels();
 
         nextLevelPanel.SetActive(true);
+        gamePlayPanel.SetActive(true);
     }
 
-    public void showGamePlayPanel()
+    private void showGamePlayPanel()
     {
         hideAllPanels();
 
@@ -67,9 +68,15 @@ public class UiCntrl : MonoBehaviour
         levelCompletePanel.SetActive(false);
     }
 
-    public void showLevel(int level)
+    public void InitializeNewRun()
     {
-        levelText.text = "Level " + ((level == 0) ? "Tutorial" : (level).ToString());
+        ShowNextLevelPanel();
+        UpdateHealthRatio(100.0f, 100.0f);
+    }
+
+    public void ShowGameLevel(GameLevel gameLevel)
+    {
+        levelText.text = gameLevel.name;
     }
 
     public void CountDownSlider(float value)
@@ -110,8 +117,11 @@ public class UiCntrl : MonoBehaviour
         EventManager.Instance.InvokeOnSliderMovement(position_Slider.value);
     }
 
-    private void NewRun(GameLevel gameLevel)
+    private void StartNewRun(GameLevel gameLevel)
     {
+        showGamePlayPanel();
+
+        // Starts the game timer for the new run
         StartCoroutine(StartGameTimer(gameLevel));        
     }
 
@@ -143,12 +153,12 @@ public class UiCntrl : MonoBehaviour
     private void OnEnable()
     {
         EventManager.Instance.OnChangeGun += UpdateChangeGun;
-        EventManager.Instance.OnNewRun += NewRun;
+        EventManager.Instance.OnStartNewRun += StartNewRun;
     }
 
     private void OnDisable()
     {
         EventManager.Instance.OnChangeGun -= UpdateChangeGun;
-        EventManager.Instance.OnNewRun -= NewRun;
+        EventManager.Instance.OnStartNewRun -= StartNewRun;
     }
 }
