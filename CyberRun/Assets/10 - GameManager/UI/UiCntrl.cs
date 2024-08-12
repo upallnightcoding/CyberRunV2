@@ -26,6 +26,7 @@ public class UiCntrl : MonoBehaviour
     [SerializeField] private GameObject nextLevelPanel;
     [SerializeField] private GameObject gamePlayPanel;
     [SerializeField] private GameObject levelCompletePanel;
+    [SerializeField] private GameObject nextLevelDisplayPanel;
 
     [Header("Game Timer")]
     [SerializeField] private TMP_Text gameTime;
@@ -38,43 +39,59 @@ public class UiCntrl : MonoBehaviour
         health_Slider.value = 1.0f;
     }
 
-    public void ShowNextLevelPanel()
+    public void ShowLevelCompletePanel()
     {
-        hideAllPanels();
-
-        nextLevelPanel.SetActive(true);
-        gamePlayPanel.SetActive(true);
-    }
-
-    private void showGamePlayPanel()
-    {
-        hideAllPanels();
-
-        gamePlayPanel.SetActive(true);
-    }  
-
-    public void showLevelCompletePanel()
-    {
-        hideAllPanels();
+        HideAllPanels();
 
         levelCompletePanel.SetActive(true);
     }
 
-    private void hideAllPanels()
+    public void ShowNextLevelDisplayPanel()
+    {
+        nextLevelDisplayPanel.SetActive(true);
+    }
+
+    /**
+     * HideAllPanels() - 
+     */
+    private void HideAllPanels()
     {
         mainMenuPanel.SetActive(false);
         gamePlayPanel.SetActive(false);
         nextLevelPanel.SetActive(false);
         levelCompletePanel.SetActive(false);
+
+        levelCompletePanel.SetActive(false);
+        nextLevelDisplayPanel.SetActive(false);
     }
 
-    public void InitializeNewRun()
+    /**
+     * InitializeNewRun() - 
+     */
+    public void StartNewLevel()
     {
-        ShowNextLevelPanel();
-        UpdateHealthRatio(100.0f, 100.0f);
+        HideAllPanels();
+
+        nextLevelPanel.SetActive(true);
+        gamePlayPanel.SetActive(true);
     }
 
-    public void ShowGameLevel(GameLevel gameLevel)
+    private void StartGamePlay(GameLevel gameLevel)
+    {
+        HideAllPanels();
+
+        nextLevelPanel.SetActive(false);
+        gamePlayPanel.SetActive(true);
+
+        StartCoroutine(StartGameTimer(gameLevel));
+    }
+
+    private void InitNewLevel()
+    {
+        StartNewLevel();
+    }
+
+    public void ShowLevelName(GameLevel gameLevel)
     {
         levelText.text = gameLevel.name;
     }
@@ -94,7 +111,7 @@ public class UiCntrl : MonoBehaviour
         ammoCount_Text.text = ammoCount.ToString() + "/" + maxAmmoCount.ToString();
     }
 
-    public void UpdateHealthRatio(float health, float maxHealth)
+    public void UpdateHealth(float health, float maxHealth)
     {
         health_Slider.value = health / maxHealth;
 
@@ -115,14 +132,6 @@ public class UiCntrl : MonoBehaviour
     public void PositionChange()
     {
         EventManager.Instance.InvokeOnSliderMovement(position_Slider.value);
-    }
-
-    private void StartNewRun(GameLevel gameLevel)
-    {
-        showGamePlayPanel();
-
-        // Starts the game timer for the new run
-        StartCoroutine(StartGameTimer(gameLevel));        
     }
 
     /**
@@ -153,12 +162,14 @@ public class UiCntrl : MonoBehaviour
     private void OnEnable()
     {
         EventManager.Instance.OnChangeGun += UpdateChangeGun;
-        EventManager.Instance.OnStartNewRun += StartNewRun;
+        EventManager.Instance.OnStartGamePlay += StartGamePlay;
+        EventManager.Instance.OnInitNewLevel += InitNewLevel;
     }
 
     private void OnDisable()
     {
         EventManager.Instance.OnChangeGun -= UpdateChangeGun;
-        EventManager.Instance.OnStartNewRun -= StartNewRun;
+        EventManager.Instance.OnStartGamePlay -= StartGamePlay;
+        EventManager.Instance.OnInitNewLevel -= InitNewLevel;
     }
 }

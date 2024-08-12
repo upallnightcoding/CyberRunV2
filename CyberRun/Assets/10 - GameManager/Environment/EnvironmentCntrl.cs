@@ -38,6 +38,11 @@ public class EnvironmentCntrl : MonoBehaviour
         diff = offset * (nPlates - 1);
         z = -offset * 2.0f;
 
+        StartNewLevel();
+    }
+
+    public void StartNewLevel()
+    {
         CreatePlatform();
     }
 
@@ -49,6 +54,13 @@ public class EnvironmentCntrl : MonoBehaviour
         player.SetActive(true);
 
         startRunning = true;
+    }
+
+    private void InitNewLevel()
+    {
+        startRunning = false;
+
+        StartNewLevel();
     }
 
     // Update is called once per frame
@@ -193,12 +205,14 @@ public class EnvironmentCntrl : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.Instance.OnStartNewRun += NewRun;
+        EventManager.Instance.OnStartGamePlay += NewRun;
+        EventManager.Instance.OnInitNewLevel += InitNewLevel;
     }
 
     private void OnDisable()
     {
-        EventManager.Instance.OnStartNewRun -= NewRun;
+        EventManager.Instance.OnStartGamePlay -= NewRun;
+        EventManager.Instance.OnInitNewLevel -= InitNewLevel;
     }
 }
 

@@ -37,9 +37,16 @@ public class PlayerCntrl : MonoBehaviour
         speed = gameData.playerSpeed;
 
         animator.SetFloat("speed", speed);
-        animator.SetTrigger("startrunning");
+        animator.SetBool("startrunning", true);
 
         isRunning = true;
+    }
+
+    private void InitNewLevel()
+    {
+        isRunning = false;
+        animator.SetFloat("speed", 0.0f);
+        animator.SetBool("startrunning", false);
     }
 
     // Update is called once per frame
@@ -104,12 +111,14 @@ public class PlayerCntrl : MonoBehaviour
     private void OnEnable()
     {
         EventManager.Instance.OnSliderMovement += MovePlayer;
-        EventManager.Instance.OnStartNewRun += NewRun;
+        EventManager.Instance.OnStartGamePlay += NewRun;
+        EventManager.Instance.OnInitNewLevel += InitNewLevel;
     }
 
     private void OnDisable()
     {
         EventManager.Instance.OnSliderMovement -= MovePlayer;
-        EventManager.Instance.OnStartNewRun -= NewRun;
+        EventManager.Instance.OnStartGamePlay -= NewRun;
+        EventManager.Instance.OnInitNewLevel -= InitNewLevel;
     }
 }
