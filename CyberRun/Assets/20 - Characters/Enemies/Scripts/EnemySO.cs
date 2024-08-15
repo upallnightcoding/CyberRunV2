@@ -25,12 +25,13 @@ public class EnemySO : ScriptableObject, IDamageCntrl
         return (enemy);
     }
 
-    public void Kill(Vector3 position)
+    public void Kill(GameObject gameObject)
     {
         EventManager.Instance.InvokeOnUpdateXP(xp);
 
         if (killPrefab)
         {
+            Vector3 position = gameObject.transform.position;
             GameObject fx = Instantiate(killPrefab, position, Quaternion.identity);
 
             Destroy(fx, 5.0f);

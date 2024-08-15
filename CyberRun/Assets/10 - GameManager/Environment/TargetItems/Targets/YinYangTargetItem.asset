@@ -18,3 +18,5 @@ MonoBehaviour:
   health: 10
   turn: 10
   xp: 0
+  speed: 6
+  damage: 10

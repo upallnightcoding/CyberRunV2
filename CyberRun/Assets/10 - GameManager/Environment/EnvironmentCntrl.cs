@@ -16,6 +16,7 @@ public class EnvironmentCntrl : MonoBehaviour
     [SerializeField] private EnemySO enemy;
 
     [SerializeField] private TargetItemSO[] targetItems;
+    [SerializeField] private TargetItemSO[] fallingTargetItems;
     [SerializeField] private GameObject[] wallPrefab;
     [SerializeField] private PickupItemSO[] pickupItems;
     [SerializeField] private TurretSO[] turretPrefab;
@@ -110,6 +111,7 @@ public class EnvironmentCntrl : MonoBehaviour
             .Build();
 
         PlaceTargetItem(5, plate);
+        PlaceFallingTargetItem(2, plate);
         //PlaceEnemy(plate);
         //PlacePickupItem(plate);
         //PlaceTurret(plate);
@@ -200,6 +202,16 @@ public class EnvironmentCntrl : MonoBehaviour
             int choice = Random.Range(0, targetItems.Length);
 
             GameObject target = targetItems[choice].Create(parent.transform);
+        }
+    }
+
+    private void PlaceFallingTargetItem(int n, GameObject parent)
+    {
+        for (int i = 0; i < n; i++)
+        {
+            int choice = Random.Range(0, fallingTargetItems.Length);
+
+            GameObject target = fallingTargetItems[choice].Create(parent.transform);
         }
     }
 

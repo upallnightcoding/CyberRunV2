@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     private GameLevel currentLevel;
 
     private long xp = 0;
-    private float health = 80.0f;
+    private float health = 100.0f;
     private float maxHealth = 100.0f;
     private int level = 0;
 

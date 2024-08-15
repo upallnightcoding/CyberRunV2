@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerCntrl : MonoBehaviour
 {
     [SerializeField] private GameData gameData;
+    [SerializeField] private PlayerSO playerSO;
     [SerializeField] private Transform gunPoint;
     [SerializeField] private GunSO gunSO;
     [SerializeField] private ProjectileSO projectileSO;
@@ -25,6 +26,7 @@ public class PlayerCntrl : MonoBehaviour
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
+        GetComponent<DamageCntrl>().Set(playerSO);
 
         direction = new Vector3(0.0f, 0.0f, 1.0f);
 

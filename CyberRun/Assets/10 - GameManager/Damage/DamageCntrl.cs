@@ -20,11 +20,16 @@ public class DamageCntrl : MonoBehaviour
     {
         health -= damage;
 
+        Debug.Log($"Taking Damage ... {damage}/{health}");
+
         if (health <= 0.0f)
         {
-            controls.Kill(gameObject.transform.position);
+            controls.Kill(gameObject);
 
-            Destroy(gameObject);
+            //Destroy(gameObject);
+        } else
+        {
+            EventManager.Instance.InvokeOnUpdateHealth(damage, 0.0f);
         }
     }
 }
@@ -33,5 +38,5 @@ public interface IDamageCntrl
 {
     public float GetHealth();
 
-    public void Kill(Vector3 position);
+    public void Kill(GameObject gameObject);
 }
