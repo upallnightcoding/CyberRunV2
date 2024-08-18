@@ -43,10 +43,17 @@ public class TargetItemSO : ScriptableObject, IDamageCntrl
 
     public float GetHealth() => health;
 
+    public Material GetDamageReaction() => null;
+
     public void Kill(GameObject gameObject)
     {
         EventManager.Instance.InvokeOnUpdateXP(xp);
 
         Destroy(gameObject);
+    }
+
+    public void UpdateHealth(float damage)
+    {
+        
     }
 }

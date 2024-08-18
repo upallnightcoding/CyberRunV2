@@ -39,6 +39,16 @@ public class EnemySO : ScriptableObject, IDamageCntrl
     }
 
     public float GetHealth() => health;
+
+    public Material GetDamageReaction()
+    {
+        return (null);
+    }
+
+    public void UpdateHealth(float damage)
+    {
+        
+    }
 }
 
 

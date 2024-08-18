@@ -111,7 +111,7 @@ public class EnvironmentCntrl : MonoBehaviour
             .Build();
 
         PlaceTargetItem(5, plate);
-        PlaceFallingTargetItem(2, plate);
+        PlaceFallingTargetItem(7, plate);
         //PlaceEnemy(plate);
         //PlacePickupItem(plate);
         //PlaceTurret(plate);
@@ -212,6 +212,8 @@ public class EnvironmentCntrl : MonoBehaviour
             int choice = Random.Range(0, fallingTargetItems.Length);
 
             GameObject target = fallingTargetItems[choice].Create(parent.transform);
+
+            Destroy(target, 5.0f);
         }
     }
 

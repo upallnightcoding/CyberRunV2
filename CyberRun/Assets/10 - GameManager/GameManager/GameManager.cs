@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
      */
     private void UpdateHealth(float deltaHealth, float deltaMaxHealth)
     {
-        health += deltaHealth;
+        health -= deltaHealth;
         maxHealth += deltaMaxHealth;
 
         uiCntrl.UpdateHealth(health, maxHealth);

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   health: 100
+  reactionMaterial: {fileID: 2100000, guid: 98f258a58aca3ca4ab5c3676b1afa831, type: 2}

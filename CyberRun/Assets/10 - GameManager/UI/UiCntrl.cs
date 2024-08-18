@@ -20,6 +20,7 @@ public class UiCntrl : MonoBehaviour
     [Header("Level Count Down")]
     [SerializeField] private Slider countDownSlider;
     [SerializeField] private TMP_Text levelText;
+    [SerializeField] private TMP_Text levelTextGamePlay;
 
     [Header("UI Panels")]
     [SerializeField] private GameObject mainMenuPanel;
@@ -94,6 +95,7 @@ public class UiCntrl : MonoBehaviour
     public void ShowLevelName(GameLevel gameLevel)
     {
         levelText.text = gameLevel.name;
+        levelTextGamePlay.text = gameLevel.name;
     }
 
     public void CountDownSlider(float value)

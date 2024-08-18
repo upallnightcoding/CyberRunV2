@@ -32,8 +32,6 @@ public class TargetItemCntrl : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Target Item Cntrl hit {other.gameObject}");
-
         if (other.gameObject.TryGetComponent<DamageCntrl>(out DamageCntrl damageHealth))
         {
             damageHealth.TakeDamage(damage);
