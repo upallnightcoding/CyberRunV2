@@ -16,6 +16,9 @@ public class EventManager
     public event Action OnInitNewLevel = delegate { };
     public void InvokeOnInitNewLevel() => OnInitNewLevel.Invoke();
 
+    public event Action OnPlayerDeath = delegate { };
+    public void InvokeOnPlayerDeath() => OnPlayerDeath.Invoke();
+
     public event Action<GameLevel> OnStartGamePlay = delegate { };
     public void InvokeOnStartGamePlay(GameLevel gameLevel) => OnStartGamePlay.Invoke(gameLevel);
 

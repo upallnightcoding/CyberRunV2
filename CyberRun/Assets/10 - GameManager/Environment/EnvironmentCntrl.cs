@@ -23,9 +23,12 @@ public class EnvironmentCntrl : MonoBehaviour
     [SerializeField] private GameObject[] shieldPrefab;
     [SerializeField] private GameObject[] papersPrefab;
 
-    private float offset = 17.5f;
+    private float sizeOfTile = 2.5f;
+    private float offset;
     private float z = 0.0f;
     private float diff;
+
+    // Number of plates used to initialize the run
     private int nPlates = 7;
 
     private int currentLevel = 0;
@@ -34,8 +37,11 @@ public class EnvironmentCntrl : MonoBehaviour
 
     private bool startRunning = false;
 
+    private GameLevel gameLevel;
+
     public void Start()
     {
+        offset = sizeOfTile * 8.0f;
         diff = offset * (nPlates - 1);
         z = -offset * 2.0f;
 
@@ -50,7 +56,9 @@ public class EnvironmentCntrl : MonoBehaviour
     // Start is called before the first frame update
     public void NewRun(GameLevel gameLevel)
     {
-        InitializeEnvironment(gameLevel);
+        this.gameLevel = gameLevel;
+
+        InitializeEnvironment();
 
         player.SetActive(true);
 
@@ -78,7 +86,7 @@ public class EnvironmentCntrl : MonoBehaviour
         }
     }
 
-    private void InitializeEnvironment(GameLevel gameLevel)
+    private void InitializeEnvironment()
     {
         for (int i = 0; i < nPlates; i++)
         {
@@ -110,11 +118,14 @@ public class EnvironmentCntrl : MonoBehaviour
             .Position(new Vector3(0.0f, 0.0f, z))
             .Build();
 
-        PlaceTargetItem(5, plate);
-        PlaceFallingTargetItem(7, plate);
+        PlaceTargetItem(gameLevel.nTargetItems, plate);
+        PlaceFallingTargetItem(gameLevel.nFallingItems, plate);
         //PlaceEnemy(plate);
         //PlacePickupItem(plate);
-        //PlaceTurret(plate);
+        if (gameLevel.turrets)
+        {
+            PlaceTurret(plate);
+        }
         //PlaceShieldItem(plate);
 
         z += offset;
@@ -212,8 +223,6 @@ public class EnvironmentCntrl : MonoBehaviour
             int choice = Random.Range(0, fallingTargetItems.Length);
 
             GameObject target = fallingTargetItems[choice].Create(parent.transform);
-
-            Destroy(target, 5.0f);
         }
     }
 

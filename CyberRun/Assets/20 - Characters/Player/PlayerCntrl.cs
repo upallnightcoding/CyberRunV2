@@ -51,6 +51,17 @@ public class PlayerCntrl : MonoBehaviour
         animator.SetBool("startrunning", false);
     }
 
+    /**
+     * PlayerDeath() - Event raised when the player's health reaches zero or
+     * less.  The player must stop and all game values are reset.
+     */
+    private void PlayerDeath()
+    {
+        isRunning = false;
+        animator.SetFloat("speed", 0.0f);
+        animator.SetBool("startrunning", false);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -115,6 +126,7 @@ public class PlayerCntrl : MonoBehaviour
         EventManager.Instance.OnSliderMovement += MovePlayer;
         EventManager.Instance.OnStartGamePlay += NewRun;
         EventManager.Instance.OnInitNewLevel += InitNewLevel;
+        EventManager.Instance.OnPlayerDeath += PlayerDeath;
     }
 
     private void OnDisable()
@@ -122,5 +134,6 @@ public class PlayerCntrl : MonoBehaviour
         EventManager.Instance.OnSliderMovement -= MovePlayer;
         EventManager.Instance.OnStartGamePlay -= NewRun;
         EventManager.Instance.OnInitNewLevel -= InitNewLevel;
+        EventManager.Instance.OnPlayerDeath -= PlayerDeath;
     }
 }

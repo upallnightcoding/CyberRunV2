@@ -17,4 +17,6 @@ MonoBehaviour:
   createPrefab: {fileID: 5786930421124503644, guid: 6c3644f24de22434e832bfe0872ccaa6, type: 3}
   health: 0
   turn: 10
-  xp: 10
+  xp: 5
+  speed: 0
+  damage: 0

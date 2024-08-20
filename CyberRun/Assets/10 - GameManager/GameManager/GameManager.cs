@@ -157,4 +157,6 @@ public class GameLevel
     public string name;
     public int xp;
     public int nTargetItems;
+    public int nFallingItems;
+    public bool turrets;
 }

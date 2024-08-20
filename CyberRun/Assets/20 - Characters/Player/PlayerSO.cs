@@ -16,7 +16,7 @@ public class PlayerSO : ScriptableObject, IDamageCntrl
 
     public void Kill(GameObject gameObject)
     {
-        
+        EventManager.Instance.InvokeOnPlayerDeath();
     }
 
     public void UpdateHealth(float damage)
