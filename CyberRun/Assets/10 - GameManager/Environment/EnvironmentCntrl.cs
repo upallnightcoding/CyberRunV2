@@ -12,6 +12,7 @@ public class EnvironmentCntrl : MonoBehaviour
     [SerializeField] private GameObject plateFw;
     [SerializeField] private GameObject platformfw;
     [SerializeField] private GameObject wallFw;
+    [SerializeField] private GameObject turningPlateFw;
 
     [SerializeField] private EnemySO enemy;
 
@@ -22,6 +23,9 @@ public class EnvironmentCntrl : MonoBehaviour
     [SerializeField] private TurretSO[] turretPrefab;
     [SerializeField] private GameObject[] shieldPrefab;
     [SerializeField] private GameObject[] papersPrefab;
+
+    [SerializeField] private GameObject[] tile1x1;
+    [SerializeField] private GameObject[] tile2x1;
 
     private float sizeOfTile = 2.5f;
     private float offset;
@@ -88,10 +92,12 @@ public class EnvironmentCntrl : MonoBehaviour
 
     private void InitializeEnvironment()
     {
-        for (int i = 0; i < nPlates; i++)
+        for (int i = 0; i < nPlates-1; i++)
         {
             plateQueue.Enqueue(CreatePlate());
         }
+
+        plateQueue.Enqueue(CreateTurningPlatform());
     }
 
     private GameObject CreatePlate()
@@ -145,6 +151,21 @@ public class EnvironmentCntrl : MonoBehaviour
             .Decorate(15, papersPrefab, 7.5f)
             .Position(new Vector3(0.0f, 0.0f, 0.0f))
             .Build();
+
+        return (plate);
+    }
+
+    private GameObject CreateTurningPlatform()
+    {
+        Framework framework = new();
+
+        GameObject plate = framework
+            .Blueprint(turningPlateFw)
+            .Decorate(15, papersPrefab, 7.5f)
+            .Position(new Vector3(0.0f, 0.0f, z))
+            .Build();
+
+        z += offset;
 
         return (plate);
     }
