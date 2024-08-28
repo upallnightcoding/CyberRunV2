@@ -69,6 +69,30 @@ public class EnvironmentCntrl : MonoBehaviour
         startRunning = true;
     }
 
+    private void RotateEnvironment(float degrees)
+    {
+        StartCoroutine(TurningPlate(degrees));
+    }
+
+    private IEnumerator TurningPlate(float degrees)
+    {
+        float start = gameObject.transform.rotation.eulerAngles.y;
+        float end = gameObject.transform.rotation.eulerAngles.y + Mathf.Abs(degrees);
+        float velocity = 0.0f;
+        Vector3 position = player.transform.position;
+        float beginat = start;
+        float sign = Mathf.Sign(degrees);
+
+        while (beginat <= end)
+        {
+            float value = Mathf.SmoothDamp(start, end, ref velocity, 0.1f);
+            beginat += value;
+            transform.RotateAround(position, Vector3.up, sign * value);
+            
+            yield return null;
+        }
+    }
+
     private void InitNewLevel()
     {
         startRunning = false;
@@ -122,7 +146,7 @@ public class EnvironmentCntrl : MonoBehaviour
             .Apply(CreateWall(), "Anchor13", -90.0f)
             .Decorate(15, papersPrefab, 7.5f)
             .Position(new Vector3(0.0f, 0.0f, z))
-            .Build();
+            .Build(environment.transform);
 
         PlaceTargetItem(gameLevel.nTargetItems, plate);
         PlaceFallingTargetItem(gameLevel.nFallingItems, plate);
@@ -251,12 +275,14 @@ public class EnvironmentCntrl : MonoBehaviour
     {
         EventManager.Instance.OnStartGamePlay += NewRun;
         EventManager.Instance.OnInitNewLevel += InitNewLevel;
+        EventManager.Instance.OnTurning += RotateEnvironment;
     }
 
     private void OnDisable()
     {
         EventManager.Instance.OnStartGamePlay -= NewRun;
         EventManager.Instance.OnInitNewLevel -= InitNewLevel;
+        EventManager.Instance.OnTurning -= RotateEnvironment;
     }
 }
 

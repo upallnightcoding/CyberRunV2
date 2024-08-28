@@ -31,6 +31,9 @@ public class EventManager
     public event Action OnWonLevel = delegate { };
     public void InvokeOnWonLevel() => OnWonLevel.Invoke();
 
+    public event Action<float> OnTurning = delegate { };
+    public void InvokeOnTurning(float degree) => OnTurning.Invoke(degree);
+
     // Event Manager Singleton
     //========================
     public static EventManager Instance

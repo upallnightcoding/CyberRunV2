@@ -11,7 +11,7 @@ public class Framework
         model = Object.Instantiate<GameObject>(frameworkPF);
 
         return (this);
-    }
+    } 
 
     public Framework Assemble(GameObject[] prefabList, string anchorName, float turn = 0.0f)
     {
@@ -74,8 +74,13 @@ public class Framework
         return (this);
     }
 
-    public GameObject Build()
+    public GameObject Build(Transform parent = null)
     {
+        if (parent != null)
+        {
+            model.transform.SetParent(parent.transform);
+        }
+
         return (model);
     }
 }

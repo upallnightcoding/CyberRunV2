@@ -18,6 +18,8 @@ public class TurningCntrl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Triggered Turning ...");
+        Debug.Log("Turning OnTrigger ...");
+        EventManager.Instance.InvokeOnTurning(-90.0f);
+        other.getclosestPoint
     }
 }
